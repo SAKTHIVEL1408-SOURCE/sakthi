@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friends CCTV Tech – Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================
+       CSS RESET & VARIABLES (MATCHES LANDING PAGE)
+       ========================================== */
+    :root {
+      --bg-primary: #040810;
+      --bg-secondary: #0b132b;
+      --bg-tertiary: #1c2541;
+      --color-primary: #00b4d8;      /* Cyber Cyan */
+      --color-secondary: #00f5d4;    /* Cyber Mint */
+      --color-accent: #ff007f;       /* Laser Pink */
+      --color-pending: #f59e0b;      /* Amber */
+      --color-contacted: #3b82f6;    /* Blue */
+      --color-completed: #10b981;    /* Emerald */
+      --text-main: #f8f9fa;
+      --text-muted: #a0aec0;
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --bg-glass: rgba(11, 19, 43, 0.65);
+      
+      --font-sans: 'Inter', sans-serif;
+      --font-tech: 'Orbitron', sans-serif;
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary);
+    }
+
+    /* ==========================================
+       LOGIN VIEW
+       ========================================== */
+    #login-view {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    #login-view::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(0, 180, 216, 0.08);
+      border-radius: 50%;
+      filter: blur(100px);
+      top: 20%;
+      left: 20%;
+    }
+
+    #login-view::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 0, 127, 0.06);
+      border-radius: 50%;
+      filter: blur(120px);
+      bottom: 20%;
+      right: 20%;
+    }
+
+    .login-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      padding: 3.5rem;
+      width: 90%;
+      max-width: 420px;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .login-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      filter: drop-shadow(0 0 10px var(--color-primary));
+    }
+
+    .login-header h2 {
+      font-family: var(--font-tech);
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff, #cbd5e1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-header p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 0.9rem 1.25rem;
+      color: white;
+      outline: none;
+      transition: var(--transition-fast);
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus {
+      border-color: var(--color-primary);
+      background: rgba(0, 180, 216, 0.03);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.15);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.95rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--color-primary), #0077b6);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition-smooth);
+      font-family: var(--font-tech);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 5px 15px rgba(0, 180, 216, 0.2);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+    }
+
+    .login-error {
+      color: var(--color-accent);
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    /* ==========================================
+       DASHBOARD VIEW
+       ========================================== */
+    #dashboard-view {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Header Nav */
+    .admin-header {
+      background: rgba(4, 8, 16, 0.75);
+      border-bottom: 1px solid var(--border-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-logo h1 {
+      font-family: var(--font-tech);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .admin-logo span {
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      color: var(--color-primary);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .welcome-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .welcome-text strong {
+      color: var(--text-main);
+    }
+
+    .logout-btn {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .logout-btn:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: white;
+    }
+
+    /* Dashboard Content */
+    .dashboard-content {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--color-primary);
+    }
+
+    .card-total::after { background: var(--color-primary); }
+    .card-pending::after { background: var(--color-pending); }
+    .card-contacted::after { background: var(--color-contacted); }
+    .card-completed::after { background: var(--color-completed); }
+
+    .stat-info h3 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-val {
+      font-family: var(--font-tech);
+      font-size: 2.25rem;
+      font-weight: 800;
+    }
+
+    .stat-icon {
+      font-size: 2.25rem;
+      opacity: 0.3;
+    }
+
+    /* Filters Bar */
+    .controls-panel {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      color: white;
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-primary);
+      background: rgba(0, 180, 216, 0.02);
+    }
+
+    .filters-wrap {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      color: white;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .filter-select:focus {
+      border-color: var(--color-primary);
+    }
+
+    .filter-select option {
+      background: var(--bg-secondary);
+      color: white;
+    }
+
+    /* Leads Table */
+    .table-container {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .leads-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .leads-table th {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-glass);
+      padding: 1.25rem 1.75rem;
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-primary);
+    }
+
+    .leads-table td {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border-glass);
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+
+    .leads-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .leads-table tr:hover td {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .lead-id {
+      font-family: var(--font-tech);
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .type-badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .type-quote {
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      color: var(--color-primary);
+    }
+
+    .type-callback {
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid rgba(255, 0, 127, 0.2);
+      color: var(--color-accent);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .status-pending {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--color-pending);
+    }
+
+    .status-contacted {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: var(--color-contacted);
+    }
+
+    .status-completed {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: var(--color-completed);
+    }
+
+    .action-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border: 1px solid transparent;
+    }
+
+    .btn-contact {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.25);
+      color: var(--color-contacted);
+    }
+
+    .btn-contact:hover {
+      background: var(--color-contacted);
+      color: white;
+    }
+
+    .btn-complete {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.25);
+      color: var(--color-completed);
+    }
+
+    .btn-complete:hover {
+      background: var(--color-completed);
+      color: white;
+    }
+
+    .empty-row {
+      text-align: center;
+      padding: 4rem !important;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Modal for View Details */
+    .details-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 8, 16, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .details-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .details-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+      padding: 3rem;
+      position: relative;
+      transform: translateY(20px) scale(0.95);
+      transition: var(--transition-smooth);
+    }
+
+    .details-modal.open .details-content {
+      transform: translateY(0) scale(1);
+    }
+
+    .details-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.75rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+    }
+
+    .details-close:hover {
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .details-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-glass);
+      padding-bottom: 1rem;
+    }
+
+    .details-header h2 {
+      font-family: var(--font-tech);
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-item h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-item p {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .grid-full-width {
+      grid-column: span 2;
+    }
+
+    .detail-message-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    /* ==========================================
+       RESPONSIVE DESIGN
+       ========================================== */
+    @media (max-width: 1024px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .controls-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-wrap {
+        width: 100%;
+      }
+      .filters-wrap {
+        width: 100%;
+      }
+      .filter-select {
+        flex: 1;
+      }
+      .leads-table th:nth-child(3),
+      .leads-table td:nth-child(3),
+      .leads-table th:nth-child(6),
+      .leads-table td:nth-child(6) {
+        display: none; /* Hide date and property details on mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       LOGIN VIEW
+       ========================================== -->
+  <div id="login-view">
+    <div class="login-card">
+      <div class="login-header">
+        <span class="login-icon">🛡</span>
+        <h2>Security HQ login</h2>
+        <p>Friends CCTV Tech Admin Command Center</p>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter security key" required />
+        </div>
+        <button type="submit" class="login-btn">Authenticate</button>
+        <div class="login-error" id="login-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       DASHBOARD VIEW
+       ========================================== -->
+  <div id="dashboard-view">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="header-container">
+        <div class="admin-logo">
+          <h1>🛡 Friends CCTV Tech</h1>
+          <span>Lead Core</span>
+        </div>
+        <div class="user-menu">
+          <span class="welcome-text">Operator: <strong>Admin</strong></span>
+          <button class="logout-btn" id="logout-btn">Secure Exit</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="dashboard-content">
+      <!-- Stats Summary cards -->
+      <section class="stats-grid">
+        <div class="stat-card card-total">
+          <div class="stat-info">
+            <h3>Total Submissions</h3>
+            <span class="stat-val" id="stat-total">0</span>
+          </div>
+          <span class="stat-icon">📊</span>
+        </div>
+        <div class="stat-card card-pending">
+          <div class="stat-info">
+            <h3>Pending</h3>
+            <span class="stat-val" id="stat-pending">0</span>
+          </div>
+          <span class="stat-icon">⏳</span>
+        </div>
+        <div class="stat-card card-contacted">
+          <div class="stat-info">
+            <h3>Contacted</h3>
+            <span class="stat-val" id="stat-contacted">0</span>
+          </div>
+          <span class="stat-icon">📞</span>
+        </div>
+        <div class="stat-card card-completed">
+          <div class="stat-info">
+            <h3>Completed</h3>
+            <span class="stat-val" id="stat-completed">0</span>
+          </div>
+          <span class="stat-icon">✅</span>
+        </div>
+      </section>
+
+      <!-- Filtering Panel -->
+      <section class="controls-panel">
+        <div class="search-wrap">
+          <input type="text" id="search-input" class="search-input" placeholder="Search by name, phone or service..." />
+        </div>
+        <div class="filters-wrap">
+          <select id="filter-type" class="filter-select">
+            <option value="all">All Types</option>
+            <option value="quote">Quotes Only</option>
+            <option value="callback">Callbacks Only</option>
+          </select>
+          <select id="filter-status" class="filter-select">
+            <option value="all">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Table -->
+      <section class="table-container">
+        <table class="leads-table">
+          <thead>
+            <tr>
+              <th>Lead ID</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Phone Number</th>
+              <th>Service Required</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody">
+            <!-- Dynamically populated rows -->
+            <tr>
+              <td colspan="8" class="empty-row">🔄 Loading leads database...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <!-- ==========================================
+       LEAD DETAILS MODAL
+       ========================================== -->
+  <div class="details-modal" id="details-modal">
+    <div class="details-content">
+      <span class="details-close" id="details-close">&times;</span>
+      <div class="details-header">
+        <h2 id="det-id">Lead Details</h2>
+        <span class="type-badge" id="det-type">QUOTE</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <h4>Customer Name</h4>
+          <p id="det-name">John Doe</p>
+        </div>
+        <div class="detail-item">
+          <h4>Phone Number</h4>
+          <p id="det-phone">+91 9876543210</p>
+        </div>
+        <div class="detail-item">
+          <h4>Email Address</h4>
+          <p id="det-email">johndoe@email.com</p>
+        </div>
+        <div class="detail-item">
+          <h4>Created On</h4>
+          <p id="det-date">May 29, 2026</p>
+        </div>
+        <div class="detail-item">
+          <h4>Service Requested</h4>
+          <p id="det-service">CCTV Installation</p>
+        </div>
+        <div class="detail-item">
+          <h4>Property Type</h4>
+          <p id="det-property">Home</p>
+        </div>
+        <div class="detail-item grid-full-width">
+          <h4>Message / Requirements</h4>
+          <div class="detail-message-box" id="det-message">
+            No specific requirements listed.
+          </div>
+        </div>
+        <div class="detail-item grid-full-width">
+          <h4>Current Status</h4>
+          <span class="status-badge" id="det-status">Pending</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ADMIN INTERACTIVE LOGIC (AJAX & SPA)
+       ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const loginView = document.getElementById('login-view');
+      const dashboardView = document.getElementById('dashboard-view');
+      const loginForm = document.getElementById('login-form');
+      const loginError = document.getElementById('login-error');
+      
+      const statTotal = document.getElementById('stat-total');
+      const statPending = document.getElementById('stat-pending');
+      const statContacted = document.getElementById('stat-contacted');
+      const statCompleted = document.getElementById('stat-completed');
+      
+      const searchInput = document.getElementById('search-input');
+      const filterType = document.getElementById('filter-type');
+      const filterStatus = document.getElementById('filter-status');
+      const leadsTbody = document.getElementById('leads-tbody');
+      
+      const logoutBtn = document.getElementById('logout-btn');
+      
+      // Details Modal
+      const detailsModal = document.getElementById('details-modal');
+      const detailsClose = document.getElementById('details-close');
+      
+      let allLeads = []; // Store the full list locally for filtering
+      
+      // ==========================================
+      // SESSION CHECK
+      // ==========================================
+      const checkSession = () => {
+        const token = localStorage.getItem('adminToken');
+        if (token) {
+          loginView.style.display = 'none';
+          dashboardView.style.display = 'flex';
+          loadLeads();
+        } else {
+          loginView.style.display = 'flex';
+          dashboardView.style.display = 'none';
+        }
+      };
+
+      // ==========================================
+      // AUTHENTICATION
+      // ==========================================
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          loginError.textContent = '';
+          
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          
+          try {
+            const response = await fetch('/api/admin/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username, password })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+              localStorage.setItem('adminToken', data.token);
+              checkSession();
+              // Reset credentials inputs
+              loginForm.reset();
+            } else {
+              loginError.textContent = data.message || 'Authentication failed.';
+            }
+          } catch (err) {
+            loginError.textContent = 'Server connection error.';
+          }
+        });
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          localStorage.removeItem('adminToken');
+          checkSession();
+        });
+      }
+
+      // ==========================================
+      // LEADS API INTEGRATION
+      // ==========================================
+      const loadLeads = async () => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) return;
+
+        try {
+          const response = await fetch('/api/admin/leads', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            // Token expired or invalid
+            localStorage.removeItem('adminToken');
+            checkSession();
+            return;
+          }
+
+          if (response.ok) {
+            allLeads = await response.json();
+            updateStatsSummary();
+            renderLeads();
+          } else {
+            leadsTbody.innerHTML = `<tr><td colspan="8" class="empty-row">⚠️ Failed to load leads database from server.</td></tr>`;
+          }
+        } catch (err) {
+          leadsTbody.innerHTML = `<tr><td colspan="8" class="empty-row">⚠️ Network error while syncing database.</td></tr>`;
+        }
+      };
+
+      const updateLeadStatus = async (leadId, newStatus) => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) return;
+
+        try {
+          const response = await fetch(`/api/admin/leads/${leadId}/status`, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Update local state list and re-render
+            const index = allLeads.findIndex(l => l.id === leadId);
+            if (index !== -1) {
+              allLeads[index].status = newStatus;
+              updateStatsSummary();
+              renderLeads();
+            }
+          } else {
+            alert(data.message || 'Failed to update status.');
+          }
+        } catch (err) {
+          alert('Server connection error. Failed to update status.');
+        }
+      };
+
+      // ==========================================
+      // RENDERING & INTERACTIVE DYNAMICS
+      // ==========================================
+      const updateStatsSummary = () => {
+        const total = allLeads.length;
+        const pending = allLeads.filter(l => l.status === 'Pending').length;
+        const contacted = allLeads.filter(l => l.status === 'Contacted').length;
+        const completed = allLeads.filter(l => l.status === 'Completed').length;
+        
+        statTotal.textContent = total;
+        statPending.textContent = pending;
+        statContacted.textContent = contacted;
+        statCompleted.textContent = completed;
+      };
+
+      const renderLeads = () => {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const typeVal = filterType.value;
+        const statusVal = filterStatus.value;
+
+        // Apply search & dropdown filters
+        const filtered = allLeads.filter(lead => {
+          const matchesSearch = 
+            lead.name.toLowerCase().includes(searchText) ||
+            lead.phone.toLowerCase().includes(searchText) ||
+            lead.service.toLowerCase().includes(searchText) ||
+            lead.id.toLowerCase().includes(searchText);
+            
+          const matchesType = typeVal === 'all' || lead.type === typeVal;
+          const matchesStatus = statusVal === 'all' || lead.status === statusVal;
+
+          return matchesSearch && matchesType && matchesStatus;
+        });
+
+        if (filtered.length === 0) {
+          leadsTbody.innerHTML = `<tr><td colspan="8" class="empty-row">🔍 No matching security leads found.</td></tr>`;
+          return;
+        }
+
+        leadsTbody.innerHTML = filtered.map(lead => {
+          const formattedDate = new Date(lead.createdAt).toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+          });
+
+          // Action buttons depending on current status
+          let actionButtons = '';
+          if (lead.status === 'Pending') {
+            actionButtons = `
+              <button class="action-btn btn-contact" onclick="changeStatus('${lead.id}', 'Contacted')">📞 Call</button>
+              <button class="action-btn btn-complete" onclick="changeStatus('${lead.id}', 'Completed')">✅ Resolve</button>
+            `;
+          } else if (lead.status === 'Contacted') {
+            actionButtons = `
+              <button class="action-btn btn-complete" onclick="changeStatus('${lead.id}', 'Completed')">✅ Resolve</button>
+            `;
+          } else {
+            actionButtons = `<span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">No actions pending</span>`;
+          }
+
+          return `
+            <tr>
+              <td class="lead-id">${lead.id}</td>
+              <td><span class="type-badge type-${lead.type}">${lead.type}</span></td>
+              <td style="color: var(--text-muted); font-size: 0.85rem;">${formattedDate}</td>
+              <td style="font-weight: 600; cursor: pointer; color: var(--color-primary);" onclick="viewDetails('${lead.id}')">${lead.name}</td>
+              <td><a href="tel:${lead.phone}" style="color: inherit; font-weight: 500;">${lead.phone}</a></td>
+              <td>${lead.service}</td>
+              <td><span class="status-badge status-${lead.status.toLowerCase()}">${lead.status}</span></td>
+              <td>
+                <div class="action-group">
+                  ${actionButtons}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      // ==========================================
+      // GLOBAL UTILITIES & DETAILS MODAL
+      // ==========================================
+      window.changeStatus = (leadId, status) => {
+        if (confirm(`Change status of lead ${leadId} to ${status}?`)) {
+          updateLeadStatus(leadId, status);
+        }
+      };
+
+      window.viewDetails = (leadId) => {
+        const lead = allLeads.find(l => l.id === leadId);
+        if (!lead) return;
+
+        document.getElementById('det-id').textContent = lead.id;
+        
+        const typeEl = document.getElementById('det-type');
+        typeEl.textContent = lead.type.toUpperCase();
+        typeEl.className = `type-badge type-${lead.type}`;
+        
+        document.getElementById('det-name').textContent = lead.name;
+        document.getElementById('det-phone').textContent = lead.phone;
+        document.getElementById('det-phone').parentElement.querySelector('p').innerHTML = `<a href="tel:${lead.phone}" style="color: var(--color-primary);">${lead.phone}</a>`;
+        document.getElementById('det-email').textContent = lead.email;
+        
+        const dateFormatted = new Date(lead.createdAt).toLocaleString(undefined, {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        document.getElementById('det-date').textContent = dateFormatted;
+        
+        document.getElementById('det-service').textContent = lead.service;
+        document.getElementById('det-property').textContent = lead.property;
+        document.getElementById('det-message').textContent = lead.message;
+        
+        const statusEl = document.getElementById('det-status');
+        statusEl.textContent = lead.status;
+        statusEl.className = `status-badge status-${lead.status.toLowerCase()}`;
+
+        detailsModal.classList.add('open');
+      };
+
+      if (detailsClose) {
+        detailsClose.addEventListener('click', () => {
+          detailsModal.classList.remove('open');
+        });
+      }
+
+      window.addEventListener('click', (e) => {
+        if (e.target === detailsModal) {
+          detailsModal.classList.remove('open');
+        }
+      });
+
+      // Search & Filters Listeners
+      searchInput.addEventListener('input', renderLeads);
+      filterType.addEventListener('change', renderLeads);
+      filterStatus.addEventListener('change', renderLeads);
+
+      // Initialize
+      checkSession();
+      
+      // Auto-refresh stats/leads every 30 seconds for live feel
+      setInterval(() => {
+        if (dashboardView.style.display === 'flex') {
+          loadLeads();
+        }
+      }, 30000);
+    });
+  </script>
+</body>
+</html>
