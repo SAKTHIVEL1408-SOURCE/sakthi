@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: friends-cctv-tech
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: JWT_SECRET
+        value: friends-cctv-cyber-key-999
+      - key: ADMIN_USER
+        value: friends cctv tech
+      - key: ADMIN_PASS
+        value: arun@8072
+      - key: USERNAME
+        value: friends cctv tech
+      - key: PASSWORD
+        value: arun@8072
+      - key: EMAIL_USER
+        placeholder: "Your Gmail (e.g. arun@gmail.com)"
+      - key: EMAIL_PASS
+        placeholder: "Your Gmail App Password"
+      - key: EMAIL_TO
+        placeholder: "Your Notification Email"
