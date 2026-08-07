@@ -2121,3 +2121,59 @@ input, select, textarea, button {
     text-align: center;
   }
 }
+/* ==========================================
+   PASSWORD EYE ICON
+   ========================================== */
+
+.password-input {
+  position: relative;
+  width: 100%;
+}
+
+.password-input input {
+  width: 100%;
+  padding-right: 3.5rem;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  background: transparent;
+
+  color: var(--text-muted);
+  font-size: 1rem;
+
+  cursor: pointer;
+  border-radius: 8px;
+
+  transition: var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--color-primary);
+  background: rgba(0, 180, 216, 0.08);
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.12);
+}
+
+.password-toggle:focus {
+  outline: none;
+}
+
+.password-toggle:focus-visible {
+  color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.25);
+}

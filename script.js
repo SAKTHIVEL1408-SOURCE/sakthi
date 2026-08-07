@@ -257,11 +257,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalForm = document.getElementById('modal-form');
   const modalSuccess = document.getElementById('modal-success');
 
-  // Open Modal function
-  const openModal = () => {
-    if (callbackModal && !sessionStorage.getItem('modalOpened')) {
-      callbackModal.classList.add('open');
-      sessionStorage.setItem('modalOpened', 'true');
+  // Open Modal function (force = true allows opening multiple times when requested by user)
+  const openModal = (force = false) => {
+    if (callbackModal) {
+      if (force || !sessionStorage.getItem('modalOpened')) {
+        if (modalForm) modalForm.reset();
+        if (modalSuccess) modalSuccess.style.display = 'none';
+        callbackModal.classList.add('open');
+        if (!force) {
+          sessionStorage.setItem('modalOpened', 'true');
+        }
+      }
     }
   };
 
@@ -271,6 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
       callbackModal.classList.remove('open');
     }
   };
+
+  // Bind all call/callback buttons to open modal on click
+  const callBtns = document.querySelectorAll('#nav-call-btn, .call-now-btn, .open-modal-btn');
+  callBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(true);
+    });
+  });
 
   if (modalCloseBtn) {
     modalCloseBtn.addEventListener('click', closeModal);
@@ -284,15 +299,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Trigger Modal: 1) After 15 seconds
-  setTimeout(openModal, 15000);
+  setTimeout(() => openModal(false), 15000);
 
   // Trigger Modal: 2) Exit Intent (User mouse leaves window at the top)
   document.addEventListener('mouseleave', (e) => {
     if (e.clientY < 20) {
-      openModal();
+      openModal(false);
     }
   });
+  // ==========================================
+  // PASSWORD SHOW / HIDE
+  // ==========================================
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('toggle-password');
 
+  if (passwordInput && togglePassword) {
+    togglePassword.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePassword.textContent = '🙈';
+        togglePassword.setAttribute('aria-label', 'Hide password');
+      } else {
+        passwordInput.type = 'password';
+        togglePassword.textContent = '👁️';
+        togglePassword.setAttribute('aria-label', 'Show password');
+      }
+    });
+  }
   // ==========================================
   // 11. FORM VALIDATION & AJAX SUBMISSION
   // ==========================================
@@ -453,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
           phone: phoneField.value.trim()
         };
 
-        const response = await fetch('http://localhost:3000/api/callback', {
+        const response = await fetch('/api/callback', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

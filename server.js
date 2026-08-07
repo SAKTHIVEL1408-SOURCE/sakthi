@@ -289,6 +289,25 @@ app.post('/api/admin/leads/:id/status', authenticateAdmin, (req, res) => {
   }
 });
 
+// 6. Delete Lead (Authorized Admin only)
+app.delete('/api/admin/leads/:id', authenticateAdmin, (req, res) => {
+  const { id } = req.params;
+  let leads = getLeads();
+  const initialLength = leads.length;
+  leads = leads.filter(l => l.id !== id);
+
+  if (leads.length === initialLength) {
+    return res.status(404).json({ message: 'Lead not found' });
+  }
+
+  if (saveLeads(leads)) {
+    console.log(`[LEAD DELETE] Lead ${id} deleted successfully`);
+    res.json({ message: 'Lead deleted successfully' });
+  } else {
+    res.status(500).json({ message: 'Failed to delete lead.' });
+  }
+});
+
 // Handle catch-all routes to serve index.html (SPA feel)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
