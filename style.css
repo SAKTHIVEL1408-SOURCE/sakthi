@@ -2536,14 +2536,14 @@ input, select, textarea, button {
 }
 
 .qr-image-wrapper {
-  max-width: 240px;
+  max-width: 270px;
   margin: 0 auto 1rem auto;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  border: 3px solid rgba(0, 245, 212, 0.3);
-  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.15);
+  border: 2px solid rgba(0, 245, 212, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 245, 212, 0.2);
   background: white;
-  padding: 4px;
+  padding: 0;
 }
 
 .qr-img {
