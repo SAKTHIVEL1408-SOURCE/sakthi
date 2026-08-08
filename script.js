@@ -602,4 +602,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ==========================================
+  // 11. GLOBAL SCROLL SAFEGUARD (PREVENTS SCROLL FREEZING)
+  // ==========================================
+  const ensureScrollUnlocked = () => {
+    const isLightboxOpen = lightboxModal && lightboxModal.style.display === 'flex';
+    const isCallbackOpen = callbackModal && callbackModal.classList.contains('open');
+    const isNavOpen = navLinks && navLinks.classList.contains('open');
+
+    if (!isLightboxOpen && !isCallbackOpen && !isNavOpen) {
+      if (document.body.style.overflow === 'hidden') {
+        document.body.style.overflow = '';
+      }
+      if (document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+      }
+    }
+  };
+
+  ['touchstart', 'touchend', 'click', 'resize', 'keyup'].forEach(evtType => {
+    window.addEventListener(evtType, ensureScrollUnlocked, { passive: true });
+  });
 });

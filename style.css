@@ -37,12 +37,19 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-main);
   overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
