@@ -1382,7 +1382,7 @@ input, select, textarea, button {
 .gp1 { background: url('/gallery-home-living-room.jpg?v=2') center/cover no-repeat; }
 .gp2 { background: url('/gallery-office-complex.jpg?v=1') center/cover no-repeat; }
 .gp3 { background: url('/gallery-perimeter-security.jpg?v=1') center/cover no-repeat; }
-.gp4 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #1c2541, #0b132b); }
+.gp4 { background: url('/gallery-apartment-building.jpg?v=1') center/cover no-repeat; }
 .gp5 { background: url('/gallery-retail-store.jpg?v=1') center/cover no-repeat; }
 .gp6 { background: url('/gallery-industrial-ptz.jpg?v=1') center/cover no-repeat; }
 
