@@ -782,7 +782,8 @@
         display: grid !important;
         grid-template-columns: 1fr 1fr 1fr !important;
         grid-template-areas:
-          "date date status"
+          "name name status"
+          "date date date"
           "phone phone email"
           "service service property"
           "call solve delete" !important;
@@ -806,6 +807,8 @@
         font-size: 0.85rem !important;
       }
 
+      .col-name { grid-area: name; font-size: 1.1rem !important; font-weight: 800 !important; color: var(--color-primary) !important; cursor: pointer; align-items: center !important; }
+      .col-name::before { content: '👤 '; }
       .col-status { grid-area: status; justify-content: flex-end !important; align-items: center !important; }
       .col-date { grid-area: date; font-size: 0.78rem !important; color: var(--text-muted) !important; margin-bottom: 0.2rem; }
       .col-date::before { content: '📅 '; }
@@ -1043,6 +1046,7 @@
           <thead>
             <tr>
               <th>Date</th>
+              <th>Customer</th>
               <th>Phone</th>
               <th>Gmail</th>
               <th>Service Required</th>
@@ -1056,7 +1060,7 @@
           <tbody id="leads-tbody">
             <!-- Dynamically populated rows -->
             <tr>
-              <td colspan="9" class="empty-row">🔄 Loading leads database...</td>
+              <td colspan="10" class="empty-row">🔄 Loading leads database...</td>
             </tr>
           </tbody>
         </table>
@@ -1325,7 +1329,7 @@
         });
 
         if (filtered.length === 0) {
-          leadsTbody.innerHTML = `<tr><td colspan="9" class="empty-row">🔍 No matching security leads found.</td></tr>`;
+          leadsTbody.innerHTML = `<tr><td colspan="10" class="empty-row">🔍 No matching security leads found.</td></tr>`;
           return;
         }
 
@@ -1341,7 +1345,7 @@
           if (lead.status === 'Pending') {
             callAction = `<button class="action-btn btn-contact" onclick="changeStatus('${lead.id}', 'Contacted')" title="Mark as Contacted">📞 Call</button>`;
           } else if (lead.status === 'Contacted') {
-            callAction = `<button class="action-btn btn-contact" onclick="changeStatus('${lead.id}', 'Pending')" title="Reset back to Pending" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--color-pending);">🔄 Reset</button>`;
+            callAction = `<button class="action-btn btn-contact" onclick="changeStatus('${lead.id}', 'Pending')" title="Reset back to Pending" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--color-pending);">🔄 Reset</style>`;
           } else {
             callAction = `<button class="action-btn btn-contact" onclick="changeStatus('${lead.id}', 'Pending')" title="Re-open lead back to Pending">🔄 Re-open</button>`;
           }
@@ -1357,6 +1361,7 @@
           return `
             <tr>
               <td class="col-date" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">${formattedDate}</td>
+              <td class="col-name" style="font-weight: 600; cursor: pointer; color: var(--color-primary); white-space: nowrap;" onclick="viewDetails('${lead.id}')" title="Click to view details">${lead.name}</td>
               <td class="col-phone" style="white-space: nowrap;"><a href="tel:${lead.phone}" style="color: inherit; font-weight: 500;">${lead.phone}</a></td>
               <td class="col-email" style="white-space: nowrap;" title="${lead.email || 'N/A'}">
                 ${lead.email ? `<a href="mailto:${lead.email}" style="color: var(--color-primary); text-decoration: none; font-weight: 500;" title="Send email to ${lead.email}">${lead.email}</a>` : '<span style="color: var(--text-muted);">N/A</span>'}
