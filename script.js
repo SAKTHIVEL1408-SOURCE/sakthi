@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
           email: emailField.value.trim(),
           service: serviceField.value,
           property: propertyField ? propertyField.value : '',
-          message: messageField.value.trim()
+          message: messageField ? messageField.value.trim() : ''
         };
 
         const response = await fetch('/api/quote', {
