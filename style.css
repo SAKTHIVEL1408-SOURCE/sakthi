@@ -38,7 +38,6 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
@@ -478,6 +477,42 @@ input, select, textarea, button {
   -webkit-mask-image: radial-gradient(circle, black, transparent 80%);
 }
 
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-primary);
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-120px) translateX(20px);
+    opacity: 0;
+  }
+}
+
 .hero-gradient-orb {
   position: absolute;
   border-radius: 50%;
@@ -897,8 +932,12 @@ input, select, textarea, button {
   color: var(--text-muted);
   margin-bottom: 1.5rem;
   line-height: 1.5;
-  height: 60px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 60px;
 }
 
 .product-specs {
@@ -1333,12 +1372,12 @@ input, select, textarea, button {
 }
 
 /* Fallback background styles to act as "Wow" high-tech templates */
-.gp1 { background: linear-gradient(45deg, #1e3c72, #2a5298); }
-.gp2 { background: linear-gradient(45deg, #0f2027, #203a43, #2c5364); }
-.gp3 { background: linear-gradient(45deg, #11998e, #38ef7d); }
-.gp4 { background: linear-gradient(45deg, #3a7bd5, #3a6073); }
-.gp5 { background: linear-gradient(45deg, #0575e6, #00f260); }
-.gp6 { background: linear-gradient(45deg, #373b44, #4286f4); }
+.gp1 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #0b132b, #1c2541); }
+.gp2 { background: radial-gradient(circle at top right, rgba(0, 245, 212, 0.25), transparent), linear-gradient(135deg, #0f2027, #203a43); }
+.gp3 { background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.25), transparent), linear-gradient(135deg, #11998e, #1c2541); }
+.gp4 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #1c2541, #0b132b); }
+.gp5 { background: radial-gradient(circle at top right, rgba(0, 245, 212, 0.25), transparent), linear-gradient(135deg, #0575e6, #0b132b); }
+.gp6 { background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.25), transparent), linear-gradient(135deg, #373b44, #1c2541); }
 
 .gallery-placeholder::after {
   content: '';
@@ -1376,7 +1415,8 @@ input, select, textarea, button {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
-  min-height: 280px;
+  min-height: 260px;
+  transition: min-height 0.3s ease;
 }
 
 .testimonial-card {
@@ -1475,12 +1515,16 @@ input, select, textarea, button {
   grid-template-columns: 0.9fr 1.1fr;
   gap: 4rem;
   align-items: start;
+  width: 100%;
+  max-width: 100%;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .contact-card {
@@ -1494,6 +1538,17 @@ input, select, textarea, button {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: var(--transition-fast);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.contact-card > div:last-child {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-card:hover {
@@ -1526,6 +1581,8 @@ input, select, textarea, button {
   display: block;
   font-size: 1.15rem;
   font-weight: 700;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-card a:hover {
@@ -1535,6 +1592,9 @@ input, select, textarea, button {
 .contact-card span {
   font-size: 0.8rem;
   color: var(--text-muted);
+  display: block;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact-hours {
@@ -1542,6 +1602,8 @@ input, select, textarea, button {
   border: 1px solid var(--border-glass);
   border-radius: 16px;
   padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-hours h4 {
@@ -1577,6 +1639,11 @@ input, select, textarea, button {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .contact-form h3 {
@@ -1584,12 +1651,15 @@ input, select, textarea, button {
   font-size: 1.65rem;
   margin-bottom: 2rem;
   text-align: center;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
+  width: 100%;
 }
 
 .form-group {
@@ -1597,6 +1667,8 @@ input, select, textarea, button {
   flex-direction: column;
   gap: 8px;
   margin-bottom: 1.5rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .form-group label {
@@ -1613,6 +1685,11 @@ input, select, textarea, button {
   padding: 0.85rem 1.25rem;
   color: var(--text-main);
   transition: var(--transition-fast);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  font-size: 1rem;
 }
 
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -1636,6 +1713,7 @@ input, select, textarea, button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  width: 100%;
 }
 
 .radio-option {
@@ -1651,6 +1729,8 @@ input, select, textarea, button {
   transition: var(--transition-fast);
   font-size: 0.8rem;
   font-weight: 600;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .radio-option input {
@@ -2018,19 +2098,31 @@ input, select, textarea, button {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
   }
   .section {
-    padding: 5rem 0;
+    padding: 4.5rem 0;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .section-subtitle {
+    font-size: 1rem;
   }
   .hero {
-    padding-top: 8rem;
+    padding-top: 7.5rem;
+    padding-bottom: 4rem;
+  }
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
   }
   .hero-title {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
+    line-height: 1.2;
   }
   .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
   }
   .hero-actions {
@@ -2039,20 +2131,28 @@ input, select, textarea, button {
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
+    gap: 1rem;
   }
   .hero-actions .btn {
     width: 100%;
   }
   .hero-stats {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 1rem;
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
   }
   .stat-divider {
     display: none;
   }
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+  }
   
-  /* Mobile Menu */
+  /* Mobile Menu & Overlay */
   .hamburger {
     display: flex;
   }
@@ -2060,67 +2160,256 @@ input, select, textarea, button {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 300px;
+    width: 80%;
+    max-width: 320px;
     height: 100vh;
     background: var(--bg-secondary);
     border-left: 1px solid var(--border-glass);
     flex-direction: column;
     justify-content: center;
-    padding: 3rem;
-    gap: 2rem;
+    padding: 3rem 2rem;
+    gap: 1.5rem;
     z-index: 1000;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.6);
     transition: var(--transition-smooth);
   }
   .nav-links.open {
     right: 0;
   }
   
+  /* Back-drop overlay when menu opens */
+  body.menu-open::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 8, 16, 0.75);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999;
+  }
+
   .services-grid, .products-grid, .team-grid, .gallery-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .gallery-filter {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .filter-btn {
+    padding: 0.4rem 1.1rem;
+    font-size: 0.8rem;
   }
   .process-steps {
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
   }
   .process-connector {
     display: none;
   }
   .contact-inner {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  .contact-card {
+    padding: 1rem 1.15rem;
+    gap: 0.85rem;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .contact-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.35rem;
+    border-radius: 10px;
+  }
+  .contact-card h4 {
+    font-size: 0.8rem;
+  }
+  .contact-card a {
+    font-size: 0.95rem;
+  }
+  .contact-hours {
+    padding: 1.25rem 1rem;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .hours-grid {
+    font-size: 0.85rem;
+  }
+  .contact-form {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem 1rem;
+    border-radius: 18px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .contact-form h3 {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    letter-spacing: 0;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 100%;
   }
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
+    width: 100%;
+  }
+  .form-group {
+    margin-bottom: 1.15rem;
+    width: 100%;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 0.75rem 0.85rem;
+    box-sizing: border-box;
   }
   .property-options {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+  .radio-option {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.78rem;
   }
   .testimonial-card {
-    padding: 2rem;
+    padding: 1.5rem 1.15rem;
   }
   .testimonial-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+  .modal-content {
+    padding: 2rem 1.25rem;
+    width: 92%;
+    max-width: 420px;
+    border-radius: 18px;
+  }
+
+  /* Floating elements positioning on mobile */
+  .whatsapp-float {
+    left: 1rem;
+    bottom: 1rem;
+    width: 48px;
+    height: 48px;
+    z-index: 99;
+  }
+  .wa-tooltip {
+    display: none;
+  }
+  .scroll-top {
+    right: 1rem;
+    bottom: 1rem;
+    width: 42px;
+    height: 42px;
+    z-index: 99;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.85rem;
+  }
+  .logo-name {
+    font-size: 1rem;
+  }
+  .logo-tagline {
+    font-size: 0.55rem;
+  }
   .hero-title {
-    font-size: 2.25rem;
+    font-size: 1.95rem;
+  }
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+  .contact-inner {
+    gap: 1.5rem;
+  }
+  .contact-card {
+    padding: 0.85rem 0.85rem;
+    gap: 0.75rem;
+  }
+  .contact-card a {
+    font-size: 0.88rem;
+  }
+  .contact-card span {
+    font-size: 0.72rem;
+  }
+  .contact-hours {
+    padding: 1rem 0.85rem;
+  }
+  .contact-hours h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.85rem;
+  }
+  .hours-grid {
+    font-size: 0.78rem;
+  }
+  .contact-form {
+    padding: 1rem 0.75rem;
+    border-radius: 14px;
+  }
+  .contact-form h3 {
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    margin-bottom: 1rem;
   }
   .property-options {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .radio-option {
+    padding: 0.55rem 0.25rem;
+    font-size: 0.75rem;
+    gap: 3px;
   }
   .footer-top {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.75rem;
   }
   .footer-bottom {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
     text-align: center;
   }
+  .modal-content {
+    padding: 1.5rem 1rem;
+    border-radius: 14px;
+  }
+  .whatsapp-float {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    width: 44px;
+    height: 44px;
+  }
+  .scroll-top {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: 40px;
+    height: 40px;
+  }
 }
+
 /* ==========================================
    PASSWORD EYE ICON
    ========================================== */
@@ -2140,26 +2429,19 @@ input, select, textarea, button {
   top: 50%;
   right: 0.75rem;
   transform: translateY(-50%);
-
   width: 36px;
   height: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0;
   margin: 0;
-
   border: none;
   background: transparent;
-
   color: var(--text-muted);
   font-size: 1rem;
-
   cursor: pointer;
   border-radius: 8px;
-
   transition: var(--transition-fast);
 }
 

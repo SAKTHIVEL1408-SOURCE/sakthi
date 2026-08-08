@@ -20,6 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // 1.5 HERO PARTICLES GENERATOR
+  // ==========================================
+  const particleContainer = document.getElementById('hero-particles');
+  if (particleContainer) {
+    const particleCount = 25;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      const size = Math.random() * 4 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 6}s`;
+      particle.style.animationDelay = `${Math.random() * 4}s`;
+      particle.style.opacity = (Math.random() * 0.4 + 0.2).toFixed(2);
+      particleContainer.appendChild(particle);
+    }
+  }
+
+  // ==========================================
   // 2. NAVBAR SCROLL EFFECT
   // ==========================================
   const navbar = document.getElementById('navbar');
@@ -39,17 +60,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const links = document.querySelectorAll('.nav-link');
 
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
+    const closeMenu = () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    };
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
     });
 
     // Close menu when clicking links
     links.forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        navLinks.classList.remove('open');
-      });
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMenu();
+      }
     });
   }
 
@@ -278,8 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Bind all call/callback buttons to open modal on click
-  const callBtns = document.querySelectorAll('#nav-call-btn, .call-now-btn, .open-modal-btn');
+  // Bind callback buttons to open modal on click (leaving #nav-call-btn to trigger native phone dialing)
+  const callBtns = document.querySelectorAll('.call-now-btn, .open-modal-btn');
   callBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
