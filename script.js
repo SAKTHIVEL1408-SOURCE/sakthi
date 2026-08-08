@@ -263,11 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         lightboxModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = '';
       }
     });
   });
 
+  if (lightboxModal) lightboxModal.addEventListener('click', closeLightbox);
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', (e) => {
