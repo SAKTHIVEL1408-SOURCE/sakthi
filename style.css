@@ -1564,16 +1564,51 @@ input, select, textarea, button {
 }
 
 .contact-icon {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-glass);
-  border-radius: 12px;
+  font-size: 1.5rem;
+  width: 52px;
+  height: 52px;
+  background: rgba(0, 180, 216, 0.08);
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--color-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
+}
+
+.contact-icon.phone-icon {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+}
+
+.contact-icon.whatsapp-icon {
+  background: rgba(37, 211, 102, 0.1);
+  border-color: rgba(37, 211, 102, 0.3);
+  color: #25d366;
+}
+
+.contact-icon.email-icon {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #f59e0b;
+}
+
+.contact-icon.address-icon {
+  background: rgba(255, 0, 127, 0.1);
+  border-color: rgba(255, 0, 127, 0.3);
+  color: #ff007f;
+}
+
+.contact-card:hover .contact-icon.address-icon {
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
 }
 
 .contact-card h4 {
