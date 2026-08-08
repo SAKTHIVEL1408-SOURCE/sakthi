@@ -1372,7 +1372,7 @@ input, select, textarea, button {
 }
 
 /* Fallback background styles to act as "Wow" high-tech templates */
-.gp1 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #0b132b, #1c2541); }
+.gp1 { background: url('/gallery-home-living-room.jpg') center/cover no-repeat; }
 .gp2 { background: radial-gradient(circle at top right, rgba(0, 245, 212, 0.25), transparent), linear-gradient(135deg, #0f2027, #203a43); }
 .gp3 { background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.25), transparent), linear-gradient(135deg, #11998e, #1c2541); }
 .gp4 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #1c2541, #0b132b); }
