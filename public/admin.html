@@ -463,9 +463,7 @@
       background: var(--bg-glass);
       border: 1px solid rgba(0, 180, 216, 0.22);
       border-radius: 20px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 180, 216, 0.08);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
@@ -475,8 +473,8 @@
 
     .leads-table {
       width: 100%;
-      min-width: 1050px;
-      table-layout: auto;
+      min-width: 0;
+      table-layout: fixed;
       border-collapse: collapse;
       text-align: left;
     }
@@ -1042,17 +1040,17 @@
         <table class="leads-table">
           <thead>
             <tr>
-              <th style="width: 7%;">Date</th>
-              <th style="width: 10%;">Customer</th>
-              <th style="width: 9%;">Phone</th>
-              <th style="width: 12%;">Gmail</th>
+              <th style="width: 8%;">Date</th>
+              <th style="width: 11%;">Customer</th>
+              <th style="width: 10%;">Phone</th>
+              <th style="width: 14%;">Gmail</th>
               <th style="width: 14%;">Service Required</th>
-              <th style="width: 7%; text-align: center;">Property</th>
+              <th style="width: 8%; text-align: center;">Property</th>
               <th style="width: 13%;">Message</th>
               <th style="width: 8%; text-align: center;">Status</th>
-              <th style="width: 6%; text-align: center;">Call</th>
-              <th style="width: 7%; text-align: center;">Solve</th>
-              <th style="width: 7%; text-align: center;">Delete</th>
+              <th style="width: 5%; text-align: center;">Call</th>
+              <th style="width: 4%; text-align: center;">Solve</th>
+              <th style="width: 5%; text-align: center;">Delete</th>
             </tr>
           </thead>
           <tbody id="leads-tbody">
