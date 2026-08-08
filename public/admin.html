@@ -1286,7 +1286,9 @@
               <td style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">${formattedDate}</td>
               <td style="font-weight: 600; cursor: pointer; color: var(--color-primary); white-space: nowrap;" onclick="viewDetails('${lead.id}')" title="Click to view details">${lead.name}</td>
               <td style="white-space: nowrap;"><a href="tel:${lead.phone}" style="color: inherit; font-weight: 500;">${lead.phone}</a></td>
-              <td style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;" title="${lead.email || 'N/A'}">${lead.email || 'N/A'}</td>
+              <td style="white-space: nowrap;" title="${lead.email || 'N/A'}">
+                ${lead.email ? `<a href="mailto:${lead.email}" style="color: var(--color-primary); text-decoration: none; font-weight: 500;" title="Send email to ${lead.email}">✉️ ${lead.email}</a>` : '<span style="color: var(--text-muted);">N/A</span>'}
+              </td>
               <td class="service-cell" title="${formatServiceLabel(lead.service)}">${formatServiceLabel(lead.service)}</td>
               <td style="text-align: center;"><span style="font-weight: 500; font-size: 0.85rem; color: var(--text-main); white-space: nowrap;">${formatPropertyLabel(lead.property)}</span></td>
               <td class="message-cell" title="${lead.message || 'N/A'}">${lead.message || 'N/A'}</td>
@@ -1374,7 +1376,12 @@
         document.getElementById('det-name').textContent = lead.name;
         document.getElementById('det-phone').textContent = lead.phone;
         document.getElementById('det-phone').parentElement.querySelector('p').innerHTML = `<a href="tel:${lead.phone}" style="color: var(--color-primary);">${lead.phone}</a>`;
-        document.getElementById('det-email').textContent = lead.email;
+        const emailVal = lead.email;
+        if (emailVal && emailVal !== 'N/A') {
+          document.getElementById('det-email').innerHTML = `<a href="mailto:${emailVal}" style="color: var(--color-primary); text-decoration: underline;">${emailVal}</a>`;
+        } else {
+          document.getElementById('det-email').textContent = 'N/A';
+        }
         
         const dateFormatted = new Date(lead.createdAt).toLocaleString(undefined, {
           month: 'long',
