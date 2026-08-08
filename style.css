@@ -1381,7 +1381,7 @@ input, select, textarea, button {
 /* Fallback background styles to act as "Wow" high-tech templates */
 .gp1 { background: url('/gallery-home-living-room.jpg?v=2') center/cover no-repeat; }
 .gp2 { background: url('/gallery-office-complex.jpg?v=1') center/cover no-repeat; }
-.gp3 { background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.25), transparent), linear-gradient(135deg, #11998e, #1c2541); }
+.gp3 { background: url('/gallery-perimeter-security.jpg?v=1') center/cover no-repeat; }
 .gp4 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #1c2541, #0b132b); }
 .gp5 { background: radial-gradient(circle at top right, rgba(0, 245, 212, 0.25), transparent), linear-gradient(135deg, #0575e6, #0b132b); }
 .gp6 { background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.25), transparent), linear-gradient(135deg, #373b44, #1c2541); }
@@ -2688,4 +2688,5 @@ input, select, textarea, button {
   font-weight: 700;
   color: var(--color-secondary);
   text-align: center;
+}
 }
