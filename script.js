@@ -217,6 +217,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Lightbox Modal Handler for Gallery Items
+  const lightboxModal = document.getElementById('lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxOverlay = document.getElementById('lightbox-overlay');
+
+  const closeLightbox = () => {
+    if (lightboxModal) {
+      lightboxModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const placeholder = item.querySelector('.gallery-placeholder');
+      const label = item.querySelector('.gallery-label');
+      
+      let bgUrl = '';
+      if (placeholder) {
+        const inlineBg = placeholder.style.backgroundImage;
+        if (inlineBg && inlineBg.includes('url')) {
+          bgUrl = inlineBg.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+        } else {
+          const compBg = window.getComputedStyle(placeholder).backgroundImage;
+          if (compBg && compBg.includes('url')) {
+            const matches = compBg.match(/url\(['"]?(.*?)['"]?\)/);
+            if (matches && matches[1]) bgUrl = matches[1];
+          }
+        }
+      }
+
+      if (lightboxModal && lightboxImg) {
+        if (bgUrl && !bgUrl.includes('gradient')) {
+          lightboxImg.src = bgUrl;
+          lightboxImg.style.display = 'block';
+        } else {
+          lightboxImg.style.display = 'none';
+        }
+        
+        if (lightboxCaption && label) {
+          lightboxCaption.textContent = label.textContent;
+        }
+
+        lightboxModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
   // ==========================================
   // 8. TESTIMONIALS CAROUSEL SLIDER
   // ==========================================
