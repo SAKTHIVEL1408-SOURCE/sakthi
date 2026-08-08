@@ -1383,7 +1383,7 @@ input, select, textarea, button {
 .gp2 { background: url('/gallery-office-complex.jpg?v=1') center/cover no-repeat; }
 .gp3 { background: url('/gallery-perimeter-security.jpg?v=1') center/cover no-repeat; }
 .gp4 { background: radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent), linear-gradient(135deg, #1c2541, #0b132b); }
-.gp5 { background: radial-gradient(circle at top right, rgba(0, 245, 212, 0.25), transparent), linear-gradient(135deg, #0575e6, #0b132b); }
+.gp5 { background: url('/gallery-retail-store.jpg?v=1') center/cover no-repeat; }
 .gp6 { background: url('/gallery-industrial-ptz.jpg?v=1') center/cover no-repeat; }
 
 .gallery-placeholder::after {
