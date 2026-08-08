@@ -2459,3 +2459,129 @@ input, select, textarea, button {
   color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.25);
 }
+
+/* ==========================================
+   WHATSAPP QR CODE SCANNER SECTION
+   ========================================== */
+.whatsapp-qr-container {
+  margin-top: 1.75rem;
+  width: 100%;
+}
+
+.qr-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.25rem;
+}
+
+.qr-divider::before,
+.qr-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px dashed var(--border-glass);
+}
+
+.qr-divider span {
+  padding: 0 0.85rem;
+  color: var(--color-secondary);
+}
+
+.whatsapp-qr-card {
+  background: rgba(11, 19, 43, 0.7);
+  border: 1px solid rgba(0, 245, 212, 0.25);
+  border-radius: 20px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 245, 212, 0.06);
+  transition: var(--transition-smooth);
+}
+
+.whatsapp-qr-card:hover {
+  border-color: rgba(0, 245, 212, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(0, 245, 212, 0.12);
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.qr-header .wa-icon {
+  font-size: 1.75rem;
+  filter: drop-shadow(0 0 8px #25d366);
+}
+
+.qr-header h4 {
+  font-family: var(--font-tech);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+}
+
+.qr-header p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.qr-image-wrapper {
+  max-width: 240px;
+  margin: 0 auto 1rem auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid rgba(0, 245, 212, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.15);
+  background: white;
+  padding: 4px;
+}
+
+.qr-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.qr-footer-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.btn-wa-direct {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  font-weight: 700;
+  font-family: var(--font-tech);
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 5px 18px rgba(37, 211, 102, 0.3);
+  transition: var(--transition-fast);
+}
+
+.btn-wa-direct:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+  color: white;
+}
